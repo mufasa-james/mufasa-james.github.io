@@ -19,10 +19,10 @@
             --accent: #764ba2;
             --bg: #f8f9fa;
             --card-bg: rgba(255, 255, 255, 0.7);
-            --text-dark: #1f2937;
-            --text-muted: #4b5563;
-            --glass: rgba(255, 255, 255, 0.6);
-            --border: rgba(0, 0, 0, 0.08);
+            --text-dark: #111827;
+            --text-muted: #374151;
+            --glass: rgba(255, 255, 255, 0.85);
+            --border: rgba(0, 0, 0, 0.15);
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             /* Static gradient for light mode */
             --hero-bg: radial-gradient(circle at top right, #f3e8ff, #e0e7ff, #f8f9fa);
@@ -499,7 +499,24 @@
         }
 
         [data-theme="light"] .contact {
-            background: #1f2937;
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        [data-theme="light"] .contact p {
+            color: #374151;
+        }
+
+        [data-theme="light"] .contact-links a {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #111827;
+        }
+
+        [data-theme="light"] .contact-links a:hover {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
         }
 
         .contact p {
@@ -511,15 +528,41 @@
             margin-right: auto;
         }
 
+        [data-theme="light"] .hero {
+            color: var(--text-dark);
+        }
+
+        [data-theme="light"] .hero p {
+            font-weight: 500;
+        }
+
+        [data-theme="light"] .btn-secondary {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-dark);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .btn-secondary:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
         .contact-links a {
             color: white;
             text-decoration: none;
-            padding: 1.2rem 2.5rem;
+            padding: 1rem 2rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50px;
             transition: var(--transition);
             backdrop-filter: blur(10px);
+            white-space: nowrap;
         }
 
         .contact-links a:hover {
@@ -678,11 +721,105 @@
             justify-content: center;
             width: 40px;
             height: 40px;
+            z-index: 2;
         }
 
         .slider-btn:hover {
             background: rgba(0, 0, 0, 0.8);
             transform: scale(1.1);
+        }
+
+        /* Modal/Lightbox */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1000px;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 4px;
+            animation: zoomIn 0.3s;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-prev,
+        .modal-next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 30px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 2001;
+        }
+
+        .modal-next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .modal-prev {
+            left: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .modal-prev:hover,
+        .modal-next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .slide-img {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -815,8 +952,27 @@
 
                 <!-- Project 2: ElectroPro -->
                 <div class="project-card reveal">
-                    <div class="project-img-container">
-                        <img src="assets/images/projects/electropro/index page.jpg" alt="ElectroPro Dashboard">
+                    <div class="slider-container">
+                        <div class="slides">
+                            <img src="assets/images/projects/electropro/index page.jpg" class="slide-img"
+                                alt="ElectroPro Index">
+                            <img src="assets/images/projects/electropro/login.jpg" class="slide-img" alt="Login">
+                            <img src="assets/images/projects/electropro/client dashboard.jpg" class="slide-img"
+                                alt="Client Dashboard">
+                            <img src="assets/images/projects/electropro/evaluator dashboard.jpg" class="slide-img"
+                                alt="Evaluator Dashboard">
+                            <img src="assets/images/projects/electropro/Book evaluation.jpg" class="slide-img"
+                                alt="Book Evaluation">
+                            <img src="assets/images/projects/electropro/evaluation reports view.jpg" class="slide-img"
+                                alt="Evaluation Reports">
+                            <img src="assets/images/projects/electropro/compliance report view.jpg" class="slide-img"
+                                alt="Compliance Report">
+                            <img src="assets/images/projects/electropro/register.jpg" class="slide-img" alt="Register">
+                        </div>
+                        <div class="slider-nav">
+                            <button class="slider-btn">&#10094;</button>
+                            <button class="slider-btn">&#10095;</button>
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3>ElectroPro</h3>
@@ -835,8 +991,22 @@
 
                 <!-- Project 3: Lineage -->
                 <div class="project-card reveal">
-                    <div class="project-img-container">
-                        <img src="assets/images/projects/lineage/homepage.png" alt="Lineage App">
+                    <div class="slider-container">
+                        <div class="slides">
+                            <img src="assets/images/projects/lineage/homepage.png" class="slide-img"
+                                alt="Lineage Homepage">
+                            <img src="assets/images/projects/lineage/spawn.png" class="slide-img" alt="Spawn">
+                            <img src="assets/images/projects/lineage/auction.png" class="slide-img" alt="Auction">
+                            <img src="assets/images/projects/lineage/broadcast.png" class="slide-img" alt="Broadcast">
+                            <img src="assets/images/projects/lineage/support.png" class="slide-img" alt="Support">
+                            <img src="assets/images/projects/lineage/faq.png" class="slide-img" alt="FAQ">
+                            <img src="assets/images/projects/lineage/terms.png" class="slide-img" alt="Terms">
+                            <img src="assets/images/projects/lineage/contact.png" class="slide-img" alt="Contact">
+                        </div>
+                        <div class="slider-nav">
+                            <button class="slider-btn">&#10094;</button>
+                            <button class="slider-btn">&#10095;</button>
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3>Lineage: Dynastic Social Network</h3>
@@ -867,8 +1037,8 @@
                                 alt="Design 3">
                         </div>
                         <div class="slider-nav">
-                            <button class="slider-btn" onclick="moveSlide(-1)">&#10094;</button>
-                            <button class="slider-btn" onclick="moveSlide(1)">&#10095;</button>
+                            <button class="slider-btn">&#10094;</button>
+                            <button class="slider-btn">&#10095;</button>
                         </div>
                     </div>
                     <div class="project-content">
@@ -918,6 +1088,7 @@
             <h2>Let's Work Together</h2>
             <p>Interested in collaborating or want to discuss a project? I'd love to hear from you.</p>
             <div class="contact-links">
+                <a href="tel:+254711438501">Call: +254 711 438 501</a>
                 <a href="mailto:jamesokara1@gmail.com">Email Me</a>
                 <a href="https://github.com/mufasa-james" target="_blank">GitHub</a>
                 <a href="https://www.linkedin.com/in/james-saiba-ke/" target="_blank">LinkedIn</a>
@@ -929,6 +1100,14 @@
     <footer>
         <p>&copy; 2026 James Saiba. Built with precision and code.</p>
     </footer>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img class="modal-content" id="modalImg">
+        <a class="modal-prev" id="modalPrev">&#10094;</a>
+        <a class="modal-next" id="modalNext">&#10095;</a>
+    </div>
 
     <script>
         // Theme Toggle Logic
@@ -947,28 +1126,172 @@
             localStorage.setItem('theme', newTheme);
         });
 
-        // Slider Logic
-        let currentSlide = 0;
-        const slider = document.getElementById('graphic-slider');
-        const slides = document.querySelectorAll('.slide-img');
-        const totalSlides = slides.length;
+        // ---------------------------------------------------------
+        // Universal Slider & Modal Logic
+        // ---------------------------------------------------------
 
-        function moveSlide(direction) {
-            currentSlide += direction;
+        // Data structure to hold images for each "gallery"
+        // We will scan the DOM to build this up automatically or allow basic sliding
 
-            if (currentSlide >= totalSlides) {
-                currentSlide = 0;
-            } else if (currentSlide < 0) {
-                currentSlide = totalSlides - 1;
+        // Setup Sliders
+        const sliders = document.querySelectorAll('.slider-container');
+
+        sliders.forEach((sliderContainer, index) => {
+            const slidesWrapper = sliderContainer.querySelector('.slides');
+            const images = sliderContainer.querySelectorAll('img');
+
+            // Robust selection of buttons
+            const buttons = sliderContainer.querySelectorAll('.slider-btn');
+            const prevBtn = buttons[0];
+            const nextBtn = buttons[1];
+
+            // Assign a unique ID if not present
+            if (!sliderContainer.id) sliderContainer.id = `slider-${index}`;
+
+            let currentIndex = 0;
+            const total = images.length;
+
+            // Click on image to open modal
+            images.forEach((img, imgIndex) => {
+                img.addEventListener('click', () => {
+                    openModal(sliderContainer, imgIndex);
+                });
+            });
+
+            if (total > 1) {
+                // Navigation functions
+                const updateSlider = () => {
+                    slidesWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+                };
+
+                const nextSlide = () => {
+                    currentIndex = (currentIndex + 1) % total;
+                    updateSlider();
+                };
+
+                const prevSlide = () => {
+                    currentIndex = (currentIndex - 1 + total) % total;
+                    updateSlider();
+                };
+
+                // Button Listeners
+                if (nextBtn) nextBtn.onclick = (e) => { e.stopPropagation(); nextSlide(); };
+                if (prevBtn) prevBtn.onclick = (e) => { e.stopPropagation(); prevSlide(); };
+
+                // Auto slide (optional, can be disabled if distracting)
+                // setInterval(nextSlide, 5000); 
+
+                // Exposure for Modal usage
+                sliderContainer.dataset.currentIndex = currentIndex;
+                sliderContainer.dataset.total = total;
+            }
+        });
+
+        // Handle single image projects (non-sliders)
+        const singleImages = document.querySelectorAll('.project-img-container img');
+        singleImages.forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                openModal(img, 0);
+            });
+        });
+
+
+        // ---------------------------------------------------------
+        // Modal / Lightbox Logic
+        // ---------------------------------------------------------
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalClose = document.getElementById('modalClose');
+        const modalPrev = document.getElementById('modalPrev');
+        const modalNext = document.getElementById('modalNext');
+
+        let activeSliderContext = null; // The .slider-container we are viewing
+        let activeImageIndex = 0;
+        let activeImagesList = [];
+
+        function openModal(containerSrc, index) {
+            modal.style.display = "block";
+
+            // If it's a slider container, get all images
+            if (containerSrc.classList.contains('slider-container')) {
+                activeSliderContext = containerSrc;
+                activeImagesList = Array.from(containerSrc.querySelectorAll('img'));
+                activeImageIndex = index;
+            } else {
+                // Single image fallback (if used elsewhere)
+                activeImagesList = [containerSrc];
+                activeImageIndex = 0;
             }
 
-            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            updateModalImage();
         }
 
-        // Auto slide every 5 seconds
-        setInterval(() => {
-            moveSlide(1);
-        }, 5000);
+        function updateModalImage() {
+            if (activeImagesList.length > 0) {
+                modalImg.src = activeImagesList[activeImageIndex].src;
+            }
+        }
+
+        function nextModalImage() {
+            if (activeImagesList.length > 1) {
+                activeImageIndex = (activeImageIndex + 1) % activeImagesList.length;
+                updateModalImage();
+            }
+        }
+
+        function prevModalImage() {
+            if (activeImagesList.length > 1) {
+                activeImageIndex = (activeImageIndex - 1 + activeImagesList.length) % activeImagesList.length;
+                updateModalImage();
+            }
+        }
+
+        // Close Modal
+        modalClose.onclick = () => { modal.style.display = "none"; };
+        modal.onclick = (e) => {
+            if (e.target === modal) modal.style.display = "none";
+        }
+
+        // Modal Navigation
+        modalNext.onclick = (e) => { e.stopPropagation(); nextModalImage(); };
+        modalPrev.onclick = (e) => { e.stopPropagation(); prevModalImage(); };
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === "block") {
+                if (e.key === "ArrowRight") nextModalImage();
+                if (e.key === "ArrowLeft") prevModalImage();
+                if (e.key === "Escape") modal.style.display = "none";
+            }
+        });
+
+        // Swipe Support (Touch Events)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        modal.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        modal.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swiped Left -> Next
+                nextModalImage();
+            }
+            if (touchEndX > touchStartX + 50) {
+                // Swiped Right -> Prev
+                prevModalImage();
+            }
+        }
+
+        // Also enable swipe for inline sliders??
+        // Implementation for inline sliders if needed...
 
         // Reveal on scroll logic
         function reveal() {
